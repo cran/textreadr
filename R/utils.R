@@ -84,20 +84,6 @@ function(multi.columns, sep=".", handle.na=TRUE, trim=TRUE){
     return(m)
 }
 
-check_availability <- function(){
-
-    os <- Sys.info()[['sysname']]
-    switch(os,
-        Windows= available[["Windows"]],
-        Linux  = available[["Linux"]],
-        Darwin = available[["Darwin"]],
-        stop(FALSE)
-    )
-}
 
 
-available <- c(
-    c(Windows= TRUE),
-    c(Linux  = FALSE),
-    c(Darwin = FALSE)
-)
+

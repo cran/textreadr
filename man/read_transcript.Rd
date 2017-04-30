@@ -103,12 +103,13 @@ dat4 <- read_transcript(doc3, sep = "-", skip = 1)
 dat5 <- read_transcript(doc4)
 dat6 <- read_transcript(doc5)
 
+## MS doc format
 \dontrun{
-## MS doc format (must have antiword installed)
 dat7 <- read_transcript(doc6) ## need to skip Researcher
 dat8 <- read_transcript(doc6, skip = 1)
 }
 
+## text string input
 trans <- "sam: Computer is fun. Not too fun.
 greg: No it's not, it's dumb.
 teacher: What should we do?
