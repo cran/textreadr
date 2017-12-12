@@ -5,7 +5,7 @@
 \title{Read In Multiple Files From a Directory}
 \usage{
 read_dir(path, pattern = NULL, doc.col = "document", all.files = FALSE,
-  recursive = FALSE, ...)
+  recursive = FALSE, ignore.case = FALSE, ...)
 }
 \arguments{
 \item{path}{Path to the directory.}
@@ -21,6 +21,9 @@ are returned. If \code{TRUE}, all file names will be returned.}
 
 \item{recursive}{Logical. Should the listing recurse into directories?}
 
+\item{ignore.case}{logical.  If \code{TRUE} case in the \code{pattern} argument 
+will be ignored.}
+
 \item{\ldots}{Other arguments passed to read_document functions.}
 }
 \value{
@@ -35,4 +38,3 @@ Read in multiple files from a directory and create a
 read_dir(system.file("docs/Maas2011/pos", package = "textreadr"))
 read_dir(system.file("docs/Maas2011", package = "textreadr"), recursive=TRUE)
 }
-

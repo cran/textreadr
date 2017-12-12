@@ -60,7 +60,7 @@ character or an empty string. Use \code{""} to turn off the interpretation of
 comments altogether.}
 
 \item{max.person.nchar}{The max number of characters long names are expected
-to be.  This information is used to warn the user if a separat appears beyond
+to be.  This information is used to warn the user if a separator appears beyond
 this length in the text.}
 
 \item{\ldots}{Further arguments to be passed to \code{\link[utils]{read.table}},
@@ -70,7 +70,7 @@ this length in the text.}
 Returns a dataframe of dialogue and people.
 }
 \description{
-Read .docx, .csv, .xlsx, .xlsx, or .txt transcript style files into R.
+Read .docx, .doc, .rtf, .csv, .xlsx, .xlsx, or .txt transcript style files into R.
 }
 \note{
 If a transcript is a .docx file read_transcript expects two columns
@@ -82,6 +82,7 @@ separator).  .doc files must be converted to .docx before reading in.
 file being read in is .docx.  The researcher should carefully investigate
 each transcript for errors before further parsing the data.
 }
+
 \examples{
 (doc1 <- system.file("docs/trans1.docx", package = "textreadr"))
 (doc2 <- system.file("docs/trans2.docx", package = "textreadr"))
@@ -107,6 +108,14 @@ dat6 <- read_transcript(doc5)
 \dontrun{
 dat7 <- read_transcript(doc6) ## need to skip Researcher
 dat8 <- read_transcript(doc6, skip = 1)
+}
+
+## rtf format
+\dontrun{
+rtf_doc <- download(
+    'https://raw.githubusercontent.com/trinker/textreadr/master/inst/docs/trans7.rtf'
+)
+dat9 <- read_transcript(rtf_doc, skip = 1)
 }
 
 ## text string input
@@ -142,11 +151,10 @@ real_dat <- read_transcript(
     skip = 19
 )
 }
-\author{
-Bryan Goodrich and Tyler Rinker <tyler.rinker@gmail.com>.
-}
 \references{
 \url{https://github.com/trinker/qdap/wiki/Reading-.docx-\%5BMS-Word\%5D-Transcripts-into-R}
 }
+\author{
+Bryan Goodrich and Tyler Rinker <tyler.rinker@gmail.com>.
+}
 \keyword{transcript}
-

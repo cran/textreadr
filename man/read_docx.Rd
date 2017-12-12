@@ -15,7 +15,7 @@ read_docx(file, skip = 0, remove.empty = TRUE, trim = TRUE, ...)
 removed.}
 
 \item{trim}{logical.  If \code{TRUE} the leading/training white space is
-reoved.}
+removed.}
 
 \item{\dots}{ignored.}
 }
@@ -36,4 +36,3 @@ file <- download(url)
 Bryan Goodrich and Tyler Rinker <tyler.rinker@gmail.com>.
 }
 \keyword{docx}
-

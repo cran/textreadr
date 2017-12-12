@@ -15,7 +15,7 @@ read_html(file, skip = 0, remove.empty = TRUE, trim = TRUE, ...)
 removed.}
 
 \item{trim}{logical.  If \code{TRUE} the leading/training white space is
-reoved.}
+removed.}
 
 \item{\dots}{Other arguments passed to \code{\link[xml2]{read_html}}.}
 }
@@ -44,4 +44,3 @@ The xpath is taken from Tony Breyal's response on StackOverflow:
 \url{http://stackoverflow.com/questions/3195522/is-there-a-simple-way-in-r-to-extract-only-the-text-elements-of-an-html-page/3195926#3195926}
 }
 \keyword{html}
-

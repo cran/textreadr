@@ -4,10 +4,19 @@
 \alias{read_document}
 \title{Generic Function to Read in a Document}
 \usage{
-read_document(file, combine = FALSE, format = FALSE, ...)
+read_document(file, skip = 0, remove.empty = TRUE, trim = TRUE,
+  combine = FALSE, format = FALSE, ...)
 }
 \arguments{
-\item{file}{The path to the a .pdf, .txt, .html, .docx, or .doc file.}
+\item{file}{The path to the a .pdf, .txt, .html, .rtf, .docx, or .doc file.}
+
+\item{skip}{The number of lines to skip.}
+
+\item{remove.empty}{logical.  If \code{TRUE} empty elements in the vector are
+removed.}
+
+\item{trim}{logical.  If \code{TRUE} the leading/training white space is
+removed.}
 
 \item{combine}{logical.  If \code{TRUE} the vector is concatenated into a
 single string via \code{\link[textshape]{combine}}.}
@@ -24,7 +33,7 @@ the \code{-f} flag in antiword.}
 Returns a \code{\link[base]{list}} of string \code{\link[base]{vector}}s.
 }
 \description{
-Generic function to read in a .pdf, .txt, .html, .docx, or .doc file.
+Generic function to read in a .pdf, .txt, .html, .rtf, .docx, or .doc file.
 }
 \examples{
 ## .pdf
@@ -50,9 +59,16 @@ read_document(doc_doc)
 txt_doc <- system.file('docs/textreadr_creed.txt', package = "textreadr")
 read_document(txt_doc)
 
+## .rtf
+\dontrun{
+rtf_doc <- download(
+    'https://raw.githubusercontent.com/trinker/textreadr/master/inst/docs/trans7.rtf'
+)
+read_document(rtf_doc)
+}
+
 \dontrun{
 ## URLs
 read_document('http://www.talkstats.com/index.php')
 }
 }
-
