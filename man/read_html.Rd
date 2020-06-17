@@ -2,9 +2,12 @@
 % Please edit documentation in R/read_html.R
 \name{read_html}
 \alias{read_html}
+\alias{read_xml}
 \title{Read in .html Content}
 \usage{
 read_html(file, skip = 0, remove.empty = TRUE, trim = TRUE, ...)
+
+read_xml(file, skip = 0, remove.empty = TRUE, trim = TRUE, ...)
 }
 \arguments{
 \item{file}{The path to the .html file.}
@@ -17,7 +20,7 @@ removed.}
 \item{trim}{logical.  If \code{TRUE} the leading/training white space is
 removed.}
 
-\item{\dots}{Other arguments passed to \code{\link[xml2]{read_html}}.}
+\item{...}{Other arguments passed to \link[xml2:read_xml]{xml2::read_html()}.}
 }
 \value{
 Returns a character vector.

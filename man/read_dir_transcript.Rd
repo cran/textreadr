@@ -4,12 +4,27 @@
 \alias{read_dir_transcript}
 \title{Read In Multiple Transcript Files From a Directory}
 \usage{
-read_dir_transcript(path, col.names = c("Document", "Person",
-  "Dialogue"), pattern = NULL, all.files = FALSE, recursive = FALSE,
-  skip = 0, merge.broke.tot = TRUE, header = FALSE, dash = "",
-  ellipsis = "...", quote2bracket = FALSE, rm.empty.rows = TRUE,
-  na = "", sep = NULL, comment.char = "", max.person.nchar = 20,
-  ignore.case = FALSE, ...)
+read_dir_transcript(
+  path,
+  col.names = c("Document", "Person", "Dialogue"),
+  pattern = NULL,
+  all.files = FALSE,
+  recursive = FALSE,
+  skip = 0,
+  merge.broke.tot = TRUE,
+  header = FALSE,
+  dash = "",
+  ellipsis = "...",
+  quote2bracket = FALSE,
+  rm.empty.rows = TRUE,
+  na = "",
+  sep = NULL,
+  comment.char = "",
+  max.person.nchar = 20,
+  ignore.case = FALSE,
+  verbose = FALSE,
+  ...
+)
 }
 \arguments{
 \item{path}{Path to the directory.}
@@ -44,13 +59,13 @@ characters (default is to remove).}
 braces (default is \code{FALSE}).  If \code{FALSE} curly quotes are removed.}
 
 \item{rm.empty.rows}{logical.  If \code{TRUE}
-\code{\link[textreadr]{read_transcript}}  attempts to remove empty rows.}
+\code{\link[=read_transcript]{read_transcript()}}  attempts to remove empty rows.}
 
 \item{na}{A character string to be interpreted as an \code{NA} value.}
 
 \item{sep}{The field separator character. Values on each line of the file are
 separated by this character.  The default of \code{NULL} instructs
-\code{\link[textreadr]{read_transcript}} to use a separator suitable for the file
+\code{\link[=read_transcript]{read_transcript()}} to use a separator suitable for the file
 type being read in.}
 
 \item{comment.char}{A character vector of length one containing a single
@@ -64,14 +79,16 @@ this length in the text.}
 \item{ignore.case}{logical.  If \code{TRUE} case in the \code{pattern} argument
 will be ignored.}
 
-\item{\ldots}{ignored.}
+\item{verbose}{Logical. Should Each iteration of the read-in be reported.}
+
+\item{...}{ignored.}
 }
 \value{
 Returns a dataframe of documents, dialogue, and people.
 }
 \description{
 Read in multiple transcript files from a directory and create a
-\code{\link[base]{data.frame}}.
+\code{\link[base:data.frame]{base::data.frame()}}.
 }
 \examples{
 skips <- c(0, 1, 1, 0, 0, 1)

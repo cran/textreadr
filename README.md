@@ -36,7 +36,8 @@ Table of Contents
     -   [Read .doc](#read-doc)
     -   [Read .rtf](#read-rtf)
     -   [Read .pdf](#read-pdf)
-        -   [Image Based pdf: OCR](#image-based-pdf-ocr)
+        -   [Image Based .pdf: OCR](#image-based-pdf-ocr)
+    -   [Read .pptx](#read-pptx)
     -   [Read .html](#read-html)
     -   [Read Transcripts](#read-transcripts)
         -   [docx Simple](#docx-simple)
@@ -48,6 +49,7 @@ Table of Contents
         -   [Reading Text](#reading-text)
         -   [Authentic Interview](#authentic-interview)
     -   [Pairing textreadr](#pairing-textreadr)
+-   [Other Implementations](#other-implementations)
 
 Functions
 ============
@@ -55,13 +57,13 @@ Functions
 
 Most jobs in my workflow can be completed with `read_document` and
 `read_dir`. The former generically reads in a .docx, .doc, .pdf, .html,
-or .txt file without specifying the extension. The latter reads in
-multiple .docx, .doc, .rtf, .pdf, .html, or .txt files from a directory
-as a `data.frame` with a file and text column. This workflow is
-effective because most text documents I encounter are stored as a .docx,
-.doc, .rtf, .pdf, .html, or .txt file. The remaining common storage
-formats I encounter include .csv, .xlsx, XML, structured .html, and SQL.
-For these first 4 forms the
+.pptx, or .txt file without specifying the extension. The latter reads
+in multiple .docx, .doc, .rtf, .pdf, .html, .pptx or .txt files from a
+directory as a `data.frame` with a file and text column. This workflow
+is effective because most text documents I encounter are stored as a
+.docx, .doc, .rtf, .pdf, .html, .pptx, or .txt file. The remaining
+common storage formats I encounter include .csv, .xlsx, XML, structured
+.html, and SQL. For these first 4 forms the
 [**readr**](https://CRAN.R-project.org/package=readr),
 [**readx**l](https://CRAN.R-project.org/package=readxl),
 [**xml2**](https://CRAN.R-project.org/package=xml2), and
@@ -103,9 +105,9 @@ table below:
 
 <table>
 <colgroup>
-<col width="34%" />
-<col width="17%" />
-<col width="48%" />
+<col style="width: 34%" />
+<col style="width: 16%" />
+<col style="width: 49%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -195,6 +197,7 @@ You are welcome to:
 - send a pull request on: <https://github.com/trinker/textreadr/>    
 - compose a friendly e-mail to: <tyler.rinker@gmail.com>    
 
+
 Demonstration
 =============
 
@@ -204,16 +207,6 @@ Load the Packages/Data
     if (!require("pacman")) install.packages("pacman")
     pacman::p_load(textreadr, magrittr)
     pacman::p_load_gh("trinker/pathr")
-
-    ## package 'Rook' successfully unpacked and MD5 sums checked
-    ## package 'downloader' successfully unpacked and MD5 sums checked
-    ## package 'influenceR' successfully unpacked and MD5 sums checked
-    ## package 'rgexf' successfully unpacked and MD5 sums checked
-    ## package 'DiagrammeR' successfully unpacked and MD5 sums checked
-    ## package 'data.tree' successfully unpacked and MD5 sums checked
-    ## 
-    ## The downloaded binary packages are in
-    ##  C:\Users\trinker\AppData\Local\Temp\RtmpgVzUqi\downloaded_packages
 
     trans_docs <- dir(
         system.file("docs", package = "textreadr"), 
@@ -226,6 +219,7 @@ Load the Packages/Data
     pdf_doc <- system.file("docs/rl10075oralhistoryst002.pdf", package = "textreadr")
     html_doc <- system.file('docs/textreadr_creed.html', package = "textreadr")
     txt_doc <- system.file('docs/textreadr_creed.txt', package = "textreadr")
+    pptx_doc <- system.file('docs/Hello_World.pptx', package = "textreadr")
 
     rtf_doc <- download(
         'https://raw.githubusercontent.com/trinker/textreadr/master/inst/docs/trans7.rtf'
@@ -253,7 +247,7 @@ Here I download a .docx file of presidential debated from 2012.
         read_docx() %>%
         head(3)
 
-    ## pres.deb1.docx read into C:\Users\trinker\AppData\Local\Temp\RtmpgVzUqi
+    ## pres.deb1.docx read into C:\Users\trinker\AppData\Local\Temp\RtmpkZ09wS
 
     ## [1] "LEHRER: We'll talk about -- specifically about health care in a moment. But what -- do you support the voucher system, Governor?"                           
     ## [2] "ROMNEY: What I support is no change for current retirees and near-retirees to Medicare. And the president supports taking $716 billion out of that program."
@@ -287,23 +281,19 @@ done. Below I demonstrate reading each of these five file formats with
         read_document() %>%
         head(3)
 
-    ## [1] "JRMC2202 Audio Project"      "Interview Transcript"       
-    ## [3] "Interviewer: Yasmine Hassan"
+    ## [1] "JRMC2202 Audio  Project"      "Interview Transcript"         "Interviewer:  Yasmine Hassan"
 
     doc_doc %>%
         read_document() %>%
         head(3)
 
-    ## [1] "JRMC2202 Audio Project"      "Interview Transcript"       
-    ## [3] "Interviewer: Yasmine Hassan"
+    ## [1] "JRMC2202 Audio Project"      "Interview Transcript"        "Interviewer: Yasmine Hassan"
 
     rtf_doc %>%
         read_document() %>%
         head(3)
 
-    ## [1] "Researcher 2:\tOctober 7, 1892."          
-    ## [2] "Teacher 4:\tStudents it’s time to learn." 
-    ## [3] "[Student discussion; unintelligible]"
+    ## [1] "Researcher 2:\tOctober 7, 1892."           "Teacher 4:\tStudents it’s time to learn."  "[Student discussion; unintelligible]"
 
     pdf_doc %>%
         read_document() %>%
@@ -319,7 +309,7 @@ done. Below I demonstrate reading each of these five file formats with
 
     ## [1] "textreadr Creed"                                                                                                
     ## [2] "The textreadr package aims to be a lightweight tool kit that handles 80% of an analyst’s text reading in needs."
-    ## [3] "The package handles .docx, .doc, .pdf, .html, and .txt."
+    ## [3] "The package handles .docx, .doc, .pdf, .html, .pptx, and .txt."
 
     txt_doc %>%
         read_document() %>%
@@ -329,7 +319,7 @@ done. Below I demonstrate reading each of these five file formats with
     ## The textreadr package aims to be a lightweight
     ## tool kit that handles 80% of an analyst's text
     ## reading in needs.
-    ## The package handles .docx, .doc, .pdf, .html, and .txt.
+    ## The package handles .docx, .doc, .pdf, .html, .pptx, and .txt.
     ## If you have another format there is likely already
     ## another popular R package that specializes in this
     ## read in task.  For example, got XML, use the xml2
@@ -344,14 +334,20 @@ done. Below I demonstrate reading each of these five file formats with
     ## | ROracle     | Oracle                 |
     ## | RJDBC       | JDBC                   |
 
+    pptx_doc %>%
+        read_document() %>%
+        head(3)
+
+    ## [1] "Hello World"  "Tyler Rinker" "Slide 1"
+
 Read Directory Contents
 -----------------------
 
 Often there is a need to read multiple files in from a single directory.
 The `read_dir` function wraps other **textreadr** functions and `lapply`
 to create a data frame with a document and text column (one row per
-document). We will read the following documents from the 'pos' directory
-in **textreadr**'s system file:
+document). We will read the following documents from the ‘pos’ directory
+in **textreadr**’s system file:
 
     levelName
     pos          
@@ -412,22 +408,21 @@ Read .docx
 
 A .docx file is nothing but a fancy container. It can be parsed via XML.
 The `read_docx` function allows the user to read in a .docx file as
-plain text. Elements are essentially the p tags (explicitly `//w:p`) in
-the markup.
+plain text. Elements are essentially the p tags (explicitly `//w:t` tags
+collapsed with `//w:p` tags) in the markup.
 
     docx_doc %>%
         read_docx() %>%
         head(3)
 
-    ## [1] "JRMC2202 Audio Project"      "Interview Transcript"       
-    ## [3] "Interviewer: Yasmine Hassan"
+    ## [1] "JRMC2202 Audio  Project"      "Interview Transcript"         "Interviewer:  Yasmine Hassan"
 
     docx_doc %>%
         read_docx(15) %>%
         head(3)
 
-    ## [1] "Hassan:           Could you please tell me your name, your title, your age, and your place of ref,                                   umm, residence?"
-    ## [2] "Abd Rabou:   My name is Ahmad Abd Rabou. I’m assistant professor of comparative politics at"                                                         
+    ## [1] "Hassan:             Could you please tell me your name, your title, your age, and your place  of ref ,                                      umm, residence?"
+    ## [2] "Abd Rabou:     My name is Ahmad Abd Rabou. I’m assistant professor of comparative politics at"                                                              
     ## [3] "both Cairo University and The American University in Cairo. I’m 34 years old. I"
 
 Read .doc
@@ -442,20 +437,15 @@ way.
         read_doc() %>%
         head()
 
-    ## [1] "JRMC2202 Audio Project"      "Interview Transcript"       
-    ## [3] "Interviewer: Yasmine Hassan" "Narrator: Ahmad Abd Rabou"  
-    ## [5] "Date: 16/10/2014"            "Place: Narrator's office"
+    ## [1] "JRMC2202 Audio Project"      "Interview Transcript"        "Interviewer: Yasmine Hassan" "Narrator: Ahmad Abd Rabou"   "Date: 16/10/2014"            "Place: Narrator's office"
 
     doc_doc %>%
         read_doc(15) %>%
         head(7)
 
-    ## [1] "Hassan:           Could you please tell me your name, your title, your age,"
-    ## [2] "and your place of ref,"                                                     
-    ## [3] "umm, residence?"                                                            
-    ## [4] "Abd Rabou:   My name is Ahmad Abd Rabou. I'm assistant professor of"        
-    ## [5] "comparative politics at"                                                    
-    ## [6] "both Cairo University and The American University"                          
+    ## [1] "Hassan:           Could you please tell me your name, your title, your age," "and your place of ref,"                                                     
+    ## [3] "umm, residence?"                                                             "Abd Rabou:   My name is Ahmad Abd Rabou. I'm assistant professor of"        
+    ## [5] "comparative politics at"                                                     "both Cairo University and The American University"                          
     ## [7] "in Cairo. I'm 34 years old. I"
 
 Read .rtf
@@ -477,7 +467,7 @@ latex. The **striprtf** package provides the backend for `read_rtf`.
 Read .pdf
 ---------
 
-Like .docx a .pdf file is simply a container. Reading PDF's is made
+Like .docx a .pdf file is simply a container. Reading PDF’s is made
 easier with a number of command line tools. A few methods of PDF reading
 have been incorporated into R. Here I wrap **pdftools** `pdf_text` to
 produce `read_pdf`, a function with sensible defaults that is designed
@@ -504,18 +494,18 @@ with meta data, including page numbers and element (row) ids.
     ## 10 1       10         1940’s?                                 
     ## .. ...     ...        ...
 
-### Image Based pdf: OCR
+### Image Based .pdf: OCR
 
 Image based .pdfs require optical character recognition (OCR) in order
 for the images to be converted to text. The `ocr` argument of `read_pdf`
 allows the user to read in image based .pdf files and allow the
 [**tesseract**](https://CRAN.R-project.org/package=tesseract) package do
-the heavy lifting in the backend. You can look at the .pdf we'll be
+the heavy lifting in the backend. You can look at the .pdf we’ll be
 using by running:
 
     browse(pdf_doc_img)
 
-First let's try the task without using OCR.
+First let’s try the task without using OCR.
 
     pdf_doc_img %>%
         read_pdf(ocr = FALSE)
@@ -550,6 +540,38 @@ default behavior of `read_pdf`.
     ## 10 1       10         such as clustering, classi<U+FB01>cation, etc. 
     ## .. ...     ...        ... 
 
+Read .pptx
+----------
+
+Like the .docx, a .pptx file is also nothing but a fancy container.
+Likewise, it can be parsed via XML. The `read_pptx` function allows the
+user to read in a .pptx file as a data.frame with plain text that tracks
+slide id numbers.
+
+    pptx_doc %>%
+        read_pptx()
+
+    ##     slide_id element_id                      text
+    ##  1:        1          1               Hello World
+    ##  2:        1          2              Tyler Rinker
+    ##  3:        2          1                   Slide 1
+    ##  4:        2          2              Really nifty
+    ##  5:        2          3             Kinda  shifty
+    ##  6:        2          4           Not worth fifty
+    ##  7:        3          1                 Wowzers !
+    ##  8:        3          2 There’s a cat sniffing me
+    ##  9:        3          3       I think he likes me
+    ## 10:        3          4                      Ouch
+    ## 11:        3          5                 He bit me
+    ## 12:        3          6       I think he hates me
+    ## 13:        4          1                 Two Lists
+    ## 14:        4          2                       One
+    ## 15:        4          3                       Two
+    ## 16:        4          4                     Three
+    ## 17:        4          5                      Blue
+    ## 18:        4          6                     Green
+    ## 19:        4          7                    Orange
+
 Read .html
 ----------
 
@@ -564,7 +586,7 @@ with `read_html`.
 
     ##  [1] "textreadr Creed"                                                                                                                                                                                                                                                                                                                                             
     ##  [2] "The textreadr package aims to be a lightweight tool kit that handles 80% of an analyst’s text reading in needs."                                                                                                                                                                                                                                             
-    ##  [3] "The package handles .docx, .doc, .pdf, .html, and .txt."                                                                                                                                                                                                                                                                                                     
+    ##  [3] "The package handles .docx, .doc, .pdf, .html, .pptx, and .txt."                                                                                                                                                                                                                                                                                              
     ##  [4] "If you have another format there is likely already another popular R package that specializes in this read in task. For example, got XML, use the xml2 package, authored by Hadley Wickham, Jim Hester, & Jeroen Ooms. Need special handling for .html? Use Hadley Wickham’s rvest package. Got SQL? Oh boy there’s a bunch of great ways to read it into R."
     ##  [5] "R Package"                                                                                                                                                                                                                                                                                                                                                   
     ##  [6] "SQL"                                                                                                                                                                                                                                                                                                                                                         
@@ -591,10 +613,9 @@ will extract the data as a data frame with a person and text column. The
 Here I read in and parse the different formats `read_transcript`
 handles. These are the files that will be read in:
 
-    basename(trans_docs)
+    base_name(trans_docs)
 
-    ## [1] "trans1.docx" "trans2.docx" "trans3.docx" "trans4.xlsx" "trans5.xls" 
-    ## [6] "trans6.doc"  "trans7.rtf"  "transcripts"
+    ## [1] "trans1.docx" "trans2.docx" "trans3.docx" "trans4.xlsx" "trans5.xls"  "trans6.doc"  "trans7.rtf"  "transcripts"
 
 ### docx Simple
 
@@ -661,6 +682,10 @@ separator the first go round.
 
     read_transcript(trans_docs[4])
 
+    ## New names:
+    ## * `` -> ...1
+    ## * `` -> ...2
+
     ## Table: [7 x 2]
     ## 
     ##   Person             Dialogue                                
@@ -674,6 +699,10 @@ separator the first go round.
     ## . ...                ...
 
     read_transcript(trans_docs[5])
+
+    ## New names:
+    ## * `` -> ...1
+    ## * `` -> ...2
 
     ## Table: [7 x 2]
     ## 
@@ -769,18 +798,19 @@ Pairing textreadr
 **textreadr** is but one package used in the text analysis (often the
 first package used). It pairs nicely with a variety of other text
 munging and analysis packages. In the example below I show just a few
-other package pairings that are used to extract case names (e.g., "Jones
-v. State of New York") from a [Supreme Court Database Code
+other package pairings that are used to extract case names (e.g., “Jones
+v. State of New York”) from a [Supreme Court Database Code
 Book](http://scdb.wustl.edu/_brickFiles/2012_01/SCDB_2012_01_codebook.pdf).
 I demonstrate pairings with
 [**textshape**](https://github.com/trinker/textshape),
 [**textclean**](https://github.com/trinker/textclean),
 [**qdapRegex**](https://github.com/trinker/qdapRegex), and
-[**dplyr**](https://github.com/hadley/dplyr).
+[**dplyr**](https://github.com/tidyverse/dplyr).
 
     if (!require("pacman")) install.packages("pacman"); library(pacman)
     p_load(dplyr, qdapRegex)
     p_load_current_gh(file.path('trinker', c('textreadr', 'textshape', 'textclean')))
+    
 
     ## Read in pdf, split on variables
     dat <- 'http://scdb.wustl.edu/_brickFiles/2012_01/SCDB_2012_01_codebook.pdf' %>%
@@ -810,8 +840,7 @@ I demonstrate pairings with
         {.[sapply(., function(x) all(length(x) > 1 | !is.na(x)))]}
 
     ## $`24`
-    ## [1] " Townsend v. Sain"        " Simpson v. Florida"     
-    ## [3] "McNally v. United States" "United States v. Gray"   
+    ## [1] " Townsend v. Sain"        " Simpson v. Florida"      "McNally v. United States" "United States v. Gray"   
     ## 
     ## $`30`
     ## [1] "Edward V. Heck"
@@ -823,40 +852,34 @@ I demonstrate pairings with
     ## [1] "Pulliam v. Allen"   "Burnett v. Grattan"
     ## 
     ## $`40`
-    ##  [1] " United States v. Knox"                                           
-    ##  [2] "Lassiter v. Department of Social Services"                        
-    ##  [3] "Arkansas v. Tennessee"                                            
-    ##  [4] "Utah v. United States"                                            
-    ##  [5] "Johnson v. United States"                                         
-    ##  [6] "Baldonado v. California"                                          
-    ##  [7] "Conway v. California Adult Authority"                             
-    ##  [8] "Wheaton v. California"                                            
-    ##  [9] "Maxwell v. Bishop"                                                
-    ## [10] "National Labor Relations Board v. United Insurance Co. of America"
-    ## [11] "United States v. King"                                            
-    ## [12] "National Labor Relations Board v. United Insurance Co. of America"
+    ##  [1] " United States v. Knox"                                            "Lassiter v. Department of Social Services"                        
+    ##  [3] "Arkansas v. Tennessee"                                             "Utah v. United States"                                            
+    ##  [5] "Johnson v. United States"                                          "Baldonado v. California"                                          
+    ##  [7] "Conway v. California Adult Authority"                              "Wheaton v. California"                                            
+    ##  [9] "Maxwell v. Bishop"                                                 "National Labor Relations Board v. United Insurance Co. of America"
+    ## [11] "United States v. King"                                             "National Labor Relations Board v. United Insurance Co. of America"
     ## [13] "United States v. King"                                            
     ## 
     ## $`44`
-    ## [1] "Grisham v. Hagan"                  
-    ## [2] "McElroy v. Guagliardo"             
-    ## [3] "Virginia Supreme Court v. Friedman"
+    ## [1] "Grisham v. Hagan"                   "McElroy v. Guagliardo"              "Virginia Supreme Court v. Friedman"
     ## 
     ## $`48`
-    ## [1] "Baker v. Carr"                     "Gray v. Sanders"                  
-    ## [3] " Patterson v. McLean Credit Union"
+    ## [1] "Baker v. Carr"                     "Gray v. Sanders"                   " Patterson v. McLean Credit Union"
     ## 
     ## $`53`
     ## [1] "Bates v. Arizona State Bar"
     ## 
     ## $`57`
-    ## [1] "New York Gaslight Club, Inc. v. Carey"
-    ## [2] "Pruneyard Shopping Center v. Robins"  
+    ## [1] "New York Gaslight Club, Inc. v. Carey" "Pruneyard Shopping Center v. Robins"  
     ## 
     ## $`58`
-    ## [1] "Mobile v. Bolden"                            
-    ## [2] "Williams v. Brown"                           
-    ## [3] "United States v. Havens"                     
-    ## [4] "Parratt v. Taylor"                           
-    ## [5] "Dougherty County Board of Education v. White"
-    ## [6] "Jenkins v. Anderson"
+    ## [1] "Mobile v. Bolden"                             "Williams v. Brown"                            "United States v. Havens"                     
+    ## [4] "Parratt v. Taylor"                            "Dougherty County Board of Education v. White" "Jenkins v. Anderson"
+
+Other Implementations
+=====================
+
+Some other implementations of text readers in R:
+
+1.  [tm](https://CRAN.R-project.org/package=tm)
+2.  [readtext](https://CRAN.R-project.org/package=readtext)
