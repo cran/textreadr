@@ -1,22 +1,16 @@
-textreadr   
+textreadr
 ============
-
 
 ![](tools/textreadr_logo/r_textreadr.png)
 
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
-developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Build
 Status](https://travis-ci.org/trinker/textreadr.svg?branch=master)](https://travis-ci.org/trinker/textreadr)
 [![Coverage
-Status](https://coveralls.io/repos/trinker/textreadr/badge.svg?branch=master)](https://coveralls.io/r/trinker/textreadr?branch=master)
+Status](https://coveralls.io/repos/trinker/textreadr/badge.svg?branch=master)](https://coveralls.io/github/trinker/textreadr)
 [![](http://cranlogs.r-pkg.org/badges/textreadr)](https://cran.r-project.org/package=textreadr)
-
-**textreadr** is a small collection of convenience tools for reading
-text documents into R. This is not meant to be an exhaustive collection;
-for more see the [**tm**](https://CRAN.R-project.org/package=tm)
-package.
 
 
 Table of Contents
@@ -32,38 +26,45 @@ Table of Contents
         -   [Browse](#browse)
     -   [Generic Document Reading](#generic-document-reading)
     -   [Read Directory Contents](#read-directory-contents)
-    -   [Read .docx](#read-docx)
-    -   [Read .doc](#read-doc)
-    -   [Read .rtf](#read-rtf)
-    -   [Read .pdf](#read-pdf)
-        -   [Image Based .pdf: OCR](#image-based-pdf-ocr)
-    -   [Read .pptx](#read-pptx)
-    -   [Read .html](#read-html)
+    -   [Basic Readers](#basic-readers)
+        -   [Read .doc](#read-.doc)
+        -   [Read .docx](#read-.docx)
+        -   [Read .html](#read-.html)
+        -   [Read .odt](#read-.odt)
+        -   [Read .pdf](#read-.pdf)
+        -   [Read .pptx](#read-.pptx)
+        -   [Read .rtf](#read-.rtf)
     -   [Read Transcripts](#read-transcripts)
+        -   [doc](#doc)
         -   [docx Simple](#docx-simple)
         -   [docx With Skip](#docx-with-skip)
         -   [docx With Dash Separator](#docx-with-dash-separator)
-        -   [xls and xlsx](#xls-and-xlsx)
-        -   [doc](#doc)
+        -   [odt](#odt)
         -   [rtf](#rtf)
+        -   [xls and xlsx](#xls-and-xlsx)
         -   [Reading Text](#reading-text)
         -   [Authentic Interview](#authentic-interview)
     -   [Pairing textreadr](#pairing-textreadr)
 -   [Other Implementations](#other-implementations)
 
-Functions
-============
 
+**textreadr** is a small collection of convenience tools for reading
+text documents into R. This is not meant to be an exhaustive collection;
+for more see the [**tm**](https://CRAN.R-project.org/package=tm)
+package.
+
+
+# Functions
 
 Most jobs in my workflow can be completed with `read_document` and
 `read_dir`. The former generically reads in a .docx, .doc, .pdf, .html,
 .pptx, or .txt file without specifying the extension. The latter reads
-in multiple .docx, .doc, .rtf, .pdf, .html, .pptx or .txt files from a
-directory as a `data.frame` with a file and text column. This workflow
-is effective because most text documents I encounter are stored as a
-.docx, .doc, .rtf, .pdf, .html, .pptx, or .txt file. The remaining
-common storage formats I encounter include .csv, .xlsx, XML, structured
-.html, and SQL. For these first 4 forms the
+in multiple .docx, .doc, .html, .odt .pdf, .pptx, .rtf, or .txt files
+from a directory as a `data.frame` with a file and text column. This
+workflow is effective because most text documents I encounter are stored
+as a .docx, .doc, .html, .odt .pdf, .pptx, .rtf, or .txt file. The
+remaining common storage formats I encounter include .csv, .xlsx, XML,
+structured .html, and SQL. For these first 4 forms the
 [**readr**](https://CRAN.R-project.org/package=readr),
 [**readx**l](https://CRAN.R-project.org/package=readxl),
 [**xml2**](https://CRAN.R-project.org/package=xml2), and
@@ -153,21 +154,26 @@ table below:
 <td>Read .pdf</td>
 </tr>
 <tr class="even">
-<td><code>read_dir</code></td>
+<td><code>read_odt</code></td>
 <td>reading</td>
-<td>Read and format multiple .doc, .docx, .rtf, .txt, .pdf files</td>
+<td>Read .odt</td>
 </tr>
 <tr class="odd">
+<td><code>read_dir</code></td>
+<td>reading</td>
+<td>Read and format multiple .doc, .docx, .rtf, .txt, .pdf, .pptx, .odt files</td>
+</tr>
+<tr class="even">
 <td><code>read_dir_transcript</code></td>
 <td>reading</td>
 <td>Read and format multiple transcript files</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><code>download</code></td>
 <td>downloading</td>
 <td>Download documents</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><code>peek</code></td>
 <td>viewing</td>
 <td>Truncated viewing of <code>data.frame</code>s</td>
@@ -175,8 +181,7 @@ table below:
 </tbody>
 </table>
 
-Installation
-============
+# Installation
 
 To download the development version of **textreadr**:
 
@@ -189,20 +194,18 @@ the development version:
     if (!require("pacman")) install.packages("pacman")
     pacman::p_load_gh("trinker/textreadr")
 
-Contact
-=======
+# Contact
 
-You are welcome to:    
-- submit suggestions and bug-reports at: <https://github.com/trinker/textreadr/issues>    
-- send a pull request on: <https://github.com/trinker/textreadr/>    
-- compose a friendly e-mail to: <tyler.rinker@gmail.com>    
+You are welcome to:
 
+-   submit suggestions and bug-reports at:
+    <https://github.com/trinker/textreadr/issues>  
+-   send a pull request on: <https://github.com/trinker/textreadr/>  
+-   compose a friendly e-mail to: <tyler.rinker@gmail.com>
 
-Demonstration
-=============
+# Demonstration
 
-Load the Packages/Data
-----------------------
+## Load the Packages/Data
 
     if (!require("pacman")) install.packages("pacman")
     pacman::p_load(textreadr, magrittr)
@@ -220,15 +223,15 @@ Load the Packages/Data
     html_doc <- system.file('docs/textreadr_creed.html', package = "textreadr")
     txt_doc <- system.file('docs/textreadr_creed.txt', package = "textreadr")
     pptx_doc <- system.file('docs/Hello_World.pptx', package = "textreadr")
-
+    odt_doc <- system.file('docs/Hello_World.odt', package = "textreadr") 
+      
     rtf_doc <- download(
         'https://raw.githubusercontent.com/trinker/textreadr/master/inst/docs/trans7.rtf'
     )
 
     pdf_doc_img <- system.file("docs/McCune2002Choi2010.pdf", package = "textreadr")
 
-Download & Browse
------------------
+## Download & Browse
 
 The `download` and `browse` functions are utilities for downloading and
 opening files and directories.
@@ -247,7 +250,7 @@ Here I download a .docx file of presidential debated from 2012.
         read_docx() %>%
         head(3)
 
-    ## pres.deb1.docx read into C:\Users\trinker\AppData\Local\Temp\RtmpkZ09wS
+    ## pres.deb1.docx read into C:\Users\TYLERR~1\AppData\Local\Temp\RtmpMHmz2b
 
     ## [1] "LEHRER: We'll talk about -- specifically about health care in a moment. But what -- do you support the voucher system, Governor?"                           
     ## [2] "ROMNEY: What I support is no change for current retirees and near-retirees to Medicare. And the president supports taking $716 billion out of that program."
@@ -267,41 +270,29 @@ We can open files as well:
     html_doc %>%
         browse()
 
-Generic Document Reading
-------------------------
+## Generic Document Reading
 
 The `read_document` is a generic wrapper for `read_docx`, `read_doc`,
-`read_html`, and `read_pdf` that detects the file extension and chooses
-the correct reader. For most tasks that require reading a .docx, .doc,
-.html, .pdf, or .txt file this is the go-to function to get the job
-done. Below I demonstrate reading each of these five file formats with
+`read_html`, `read_odt`, `read_pdf`, `read_rtf`, and `read_pptx` that
+detects the file extension and chooses the correct reader. For most
+tasks that require reading a .docx, .doc, .html, .odt, .pdf, .pptx, .rtf
+or .txt file this is the go-to function to get the job done. Below I
+demonstrate reading each of these five file formats with
 `read_document`.
-
-    docx_doc %>%
-        read_document() %>%
-        head(3)
-
-    ## [1] "JRMC2202 Audio  Project"      "Interview Transcript"         "Interviewer:  Yasmine Hassan"
 
     doc_doc %>%
         read_document() %>%
         head(3)
 
-    ## [1] "JRMC2202 Audio Project"      "Interview Transcript"        "Interviewer: Yasmine Hassan"
+    ## [1] "JRMC2202 Audio Project"      "Interview Transcript"       
+    ## [3] "Interviewer: Yasmine Hassan"
 
-    rtf_doc %>%
+    docx_doc %>%
         read_document() %>%
         head(3)
 
-    ## [1] "Researcher 2:\tOctober 7, 1892."           "Teacher 4:\tStudents it’s time to learn."  "[Student discussion; unintelligible]"
-
-    pdf_doc %>%
-        read_document() %>%
-        head(3)
-
-    ## [1] "Interview with Mary Waters Spaulding, August 8, 2013"                                          
-    ## [2] "CRAIG BREADEN: My name is Craig Breaden. I’m the audiovisual archivist at Duke University,"    
-    ## [3] "and I’m with Kirston Johnson, the curator of the Archive of Documentary Arts at Duke. The date"
+    ## [1] "JRMC2202 Audio Project"      "Interview Transcript"       
+    ## [3] "Interviewer: Yasmine Hassan"
 
     html_doc %>%
         read_document() %>%
@@ -310,6 +301,34 @@ done. Below I demonstrate reading each of these five file formats with
     ## [1] "textreadr Creed"                                                                                                
     ## [2] "The textreadr package aims to be a lightweight tool kit that handles 80% of an analyst’s text reading in needs."
     ## [3] "The package handles .docx, .doc, .pdf, .html, .pptx, and .txt."
+
+    odt_doc %>%
+        read_document() %>%
+        head(3)
+
+    ## [1] "Hello World"                     "I am Open Document Text Format!"
+
+    pdf_doc %>%
+        read_document() %>%
+        head(3)
+
+    ## [1] "Interview with Mary Waters Spaulding, August 8, 2013\n\nCRAIG BREADEN: My name is Craig Breaden. I’m the audiovisual archivist at Duke University,\nand I’m with Kirston Johnson, the curator of the Archive of Documentary Arts at Duke. The date\nis August 8, 2013, and we are in Lexington, NC, talking with Mary Waters Spaulding about her\nlife and family, and particularly about her father, H. Lee Waters. For the recording, please state\nyour full name, date of birth, and place of birth.\n\nMARY WATERS SPAULDING: My name is Mary Elizabeth Waters Spaulding, and my place of\nbirth was Lexington, NC, on May 14, 1942.\n\nBREADEN: Can you describe what Lexington was like when you were growing up in the\n1940’s?\n\nSPAULDING: I remember it as a small town, but a thriving small town. Probably the reason it\nwas thriving was because of all the furniture factories in town, and that employed a lot of people\nand kept the town going. Of course, they’re no longer here, but at that time, it was thriving with\nthose. It was a very friendly town. My brother and I felt like we actually pretty much knew\neverybody in town, and a lot of that has to do with the fact that we saw so many photographs\nfrom our father, and we went with him on location to take photographs, and we got to meet a lot\nof people. It was just a very friendly town, and people were very kind, very thoughtful, and were\nalways very cordial with our father, H. Lee. One thing is, I don’t think any of us ever felt unsafe\nin this town; it was a very safe town to be in. We never felt threatened by anything. It was a very\nhappy childhood living in Lexington.\n\nBREADEN: Tell us about the rest of your family.\n\nSPAULDING: My older brother is eight years older than I am. His name is Tom Waters. We had\nan older sister, who would have been thirteen years older than I. My brother is 8 years older\nthan I. She was their firstborn, and she had an illness, she was epileptic at a very young age.\nShe probably started having seizures at --\n\nTOM WATERS: About six months.\n\nSPAULDING: -- about six months old, and they progressively got worse. At that time in the ‘30s,\nthey didn’t have the medication to help with that. Probably just the phenobarb was all she was\ngiven. Her seizures became more severe as she grew. She got to be a larger person, and very\ndifficult to handle this, my parents had difficulty with that. The seizures got so severe that they\njust could not manage it, so they took her to a state institution in Raleigh, the state hospital, and\nthat’s where she stayed until she died. We were allowed to visit her, like only once a month,\nbecause they wanted that to be her home, and they didn’t want her to want to go back home\nwith us. So, if our visits were more frequent, she would get more used to our being there and\nmiss us more, I guess. She contracted tuberculosis while she was there, and died at the age of\ntwenty-four. I can’t remember how old she was when she went there. I would say she was a"
+    ## [2] "teenager, like fourteen or fifteen, so she was there that long. I think it was ‘53 when she died\nthere. I don’t remember, but she was twenty-four when she died. Our mother, who played a\nlarge part in our family, she was H. Lee’s, our father’s, partner in many ways. They worked\ntogether, she worked at the studio. She helped him with the photographs. She helped him with\nthe sittings. She would help pose the brides in their dresses and their veils, and fix their hair,\nand help them get their makeup just right. She would also retouch the films by hand. She would\nalso color-tint photographs to make them look like color, with oil. And later in years, she learned\nhow to do the heavy oil application to the large portraits, that actually looked more like paintings\nthan they did photographs. They were quite a team.\n\nKIRSTON JOHNSON: What was your mother’s name?\n\nSPAULDING: Mabel Elizabeth Jarrell was her maiden name, and of course, Waters. I have my\nElizabeth is from my mom. Mary Elizabeth is from Mabel Elizabeth.\n\nBREADEN: How did they come to meet?\n\nSPAULDING: That’s an interesting story, rather comical. She was actually trained to be a nurse,\nand she was doing some training there in Lexington hospital. Our father’s mother, Gertrude\nWaters, was in the hospital for pneumonia, and they were in the same room, and I guess it was\na warm summer day, and they had a fan in the room, and the fan needed to be plugged in. Well,\nboth of them got under the bed at one time to plug this fan in, and that’s where they met. And\nthe rest is history. (laughter) I think that’s a cute story.\n\nJOHNSON: Were they both from Lexington?\n\nSPAULDING: No. Where was she from? He was from South Carolina, wasn’t he?\n\nWATERS: South Carolina.\n\nSPAULDING: He was from Greer, Gaffney, that area. And he moved to Erlanger with his mom\nand dad in the thriving Erlanger Mill days. She grew up in the orphanage in Thomasville,\nbecause her parents died like a year apart while she was still small. She had older brothers and\nsisters who didn’t have to, I think there were only three that actually went to the orphanage. So\nthat’s -- (Waters interrupts) Excuse me?\n\nWATERS: Mills Home.\n\nSPAULDING: Mills Home, okay. That’s in Thomasville. She graduated from high school there,\nand then she went into nurse’s training. Where they came from was... Wilmington area?\n\nWATERS: Wilmington area.\n\nSPAULDING: Wilmington area. That’s where her family was from. And that’s really pretty much"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+    ## [3] "all I know about the background. I’m working on that.\n\nBREADEN: Between them meeting and H. Lee Waters getting interested in photography and\nsetting up his studio in Lexington, how did that come together?\n\nSPAULDING: Actually our dad was an assistant or like an apprentice to another photographer\nwho was in the same building at... 118 ½?\n\nWATERS: 118 ½.\n\nSPAULDING: 118 ½ Main Street.\n\nWATERS: The whole top floor.\n\nSPAULDING: The whole top floor of that building on the corner of Second Avenue and Main\nStreet. I can’t remember the gentleman’s first name.\n\nWATERS: Hitchcock.\n\nSPAULDING: Hitchcock was the last name. Mr. Hitchcock was a photographer, and he kind of\ntook our dad under his wing and offered him an assistantship or apprenticeship, and he loved it\nso much that he wanted to be a photographer on his own. So, when Mr. Hitchcock retired, which\nwas shortly after that --\n\nWATERS: About a year.\n\nSPAULDING: -- about a year after that, my father’s mother helped him buy the studio, so that\nthe two of them financially went together and bought the studio.\n\nWATERS: Financial documents of that transaction are down here in the archives (indiscernible).\n\nSPAULDING: All the equipment, and -- now, of course that top floor they rented, they didn’t own\nthe building, but he bought the photography business from him.\n\nJOHNSON: So all the equipment, everything…\n\nSPAULDING: Everything, all the cameras and everything, darkroom, chemicals, so it was\nalready pretty much set up, and then it grew from there.\n\nBREADEN: Did you ever work with your father in his studio?\n\nSPAULDING: Yes, I did. I can’t say I spent numerous hours there as a small child, but I\nremember going up and just enjoying being in the atmosphere of the photographs and all the\nhustle bustle of taking the sittings, down to developing the negatives, to printing, drying the"
+
+    pptx_doc %>%
+        read_document() %>%
+        head(3)
+
+    ## [1] "Hello World"  "Tyler Rinker" "Slide 1"
+
+    rtf_doc %>%
+        read_document() %>%
+        head(3)
+
+    ## [1] "Researcher 2:\tOctober 7, 1892."          
+    ## [2] "Teacher 4:\tStudents it’s time to learn." 
+    ## [3] "[Student discussion; unintelligible]"
 
     txt_doc %>%
         read_document() %>%
@@ -334,14 +353,7 @@ done. Below I demonstrate reading each of these five file formats with
     ## | ROracle     | Oracle                 |
     ## | RJDBC       | JDBC                   |
 
-    pptx_doc %>%
-        read_document() %>%
-        head(3)
-
-    ## [1] "Hello World"  "Tyler Rinker" "Slide 1"
-
-Read Directory Contents
------------------------
+## Read Directory Contents
 
 Often there is a need to read multiple files in from a single directory.
 The `read_dir` function wraps other **textreadr** functions and `lapply`
@@ -403,30 +415,9 @@ Here we have read the files in, one row per file.
     ## 20 9_7      Working-class romantic drama from direct
     ## .. ...      ...
 
-Read .docx
-----------
+## Basic Readers
 
-A .docx file is nothing but a fancy container. It can be parsed via XML.
-The `read_docx` function allows the user to read in a .docx file as
-plain text. Elements are essentially the p tags (explicitly `//w:t` tags
-collapsed with `//w:p` tags) in the markup.
-
-    docx_doc %>%
-        read_docx() %>%
-        head(3)
-
-    ## [1] "JRMC2202 Audio  Project"      "Interview Transcript"         "Interviewer:  Yasmine Hassan"
-
-    docx_doc %>%
-        read_docx(15) %>%
-        head(3)
-
-    ## [1] "Hassan:             Could you please tell me your name, your title, your age, and your place  of ref ,                                      umm, residence?"
-    ## [2] "Abd Rabou:     My name is Ahmad Abd Rabou. I’m assistant professor of comparative politics at"                                                              
-    ## [3] "both Cairo University and The American University in Cairo. I’m 34 years old. I"
-
-Read .doc
----------
+### Read .doc
 
 A .doc file is a bit trickier to read in than .docx but is made easy by
 the **antiword** package which wraps the
@@ -437,35 +428,81 @@ way.
         read_doc() %>%
         head()
 
-    ## [1] "JRMC2202 Audio Project"      "Interview Transcript"        "Interviewer: Yasmine Hassan" "Narrator: Ahmad Abd Rabou"   "Date: 16/10/2014"            "Place: Narrator's office"
+    ## [1] "JRMC2202 Audio Project"      "Interview Transcript"       
+    ## [3] "Interviewer: Yasmine Hassan" "Narrator: Ahmad Abd Rabou"  
+    ## [5] "Date: 16/10/2014"            "Place: Narrator's office"
 
     doc_doc %>%
         read_doc(15) %>%
         head(7)
 
-    ## [1] "Hassan:           Could you please tell me your name, your title, your age," "and your place of ref,"                                                     
-    ## [3] "umm, residence?"                                                             "Abd Rabou:   My name is Ahmad Abd Rabou. I'm assistant professor of"        
-    ## [5] "comparative politics at"                                                     "both Cairo University and The American University"                          
+    ## [1] "Hassan:           Could you please tell me your name, your title, your age,"
+    ## [2] "and your place of ref,"                                                     
+    ## [3] "umm, residence?"                                                            
+    ## [4] "Abd Rabou:   My name is Ahmad Abd Rabou. I'm assistant professor of"        
+    ## [5] "comparative politics at"                                                    
+    ## [6] "both Cairo University and The American University"                          
     ## [7] "in Cairo. I'm 34 years old. I"
 
-Read .rtf
----------
+### Read .docx
 
-Rich text format (.rtf) is a plain text document with markup similar to
-latex. The **striprtf** package provides the backend for `read_rtf`.
+A .docx file is nothing but a fancy container. It can be parsed via XML.
+The `read_docx` function allows the user to read in a .docx file as
+plain text. Elements are essentially the p tags (explicitly `//w:t` tags
+collapsed with `//w:p` tags) in the markup.
 
-    rtf_doc %>%
-        read_rtf() 
+    docx_doc %>%
+        read_docx() %>%
+        head(3)
 
-    ## [1] "Researcher 2:\tOctober 7, 1892."                                                                                                                                                                                                                                                                                                                              
-    ## [2] "Teacher 4:\tStudents it’s time to learn."                                                                                                                                                                                                                                                                                                                     
-    ## [3] "[Student discussion; unintelligible]"                                                                                                                                                                                                                                                                                                                        
-    ## [4] "Multiple Students:\tYes teacher we‘re ready to learn."                                                                                                                                                                                                                                                                                                        
-    ## [5] "Teacher 4:\tLet's read this terrific book together.  It's called Moo Baa La La La and – what was I going to …  Oh yes — The story is by Sandra Boynton."                                                                                                                                                                                                      
-    ## [6] "“A cow says Moo. A Sheep says Baa. Three singing pigs say LA LA LA! \"No, no!\" you say, that isn't right. The pigs say oink all day and night. Rhinoceroses snort and snuff. And little dogs go ruff ruff ruff! Some other dogs go bow wow wow! And cats and kittens say Meow! Quack! Says the duck. A horse says neigh. It's quiet now. What do you say? ”"
+    ## [1] "JRMC2202 Audio Project"      "Interview Transcript"       
+    ## [3] "Interviewer: Yasmine Hassan"
 
-Read .pdf
----------
+    docx_doc %>%
+        read_docx(15) %>%
+        head(3)
+
+    ## [1] "Hassan:           Could you please tell me your name, your title, your age, and your place of ref,                                   umm, residence?"
+    ## [2] "Abd Rabou:   My name is Ahmad Abd Rabou. I’m assistant professor of comparative politics at"                                                         
+    ## [3] "both Cairo University and The American University in Cairo. I’m 34 years old. I"
+
+### Read .html
+
+Often a researcher only wishes to grab the text from the body of .html
+files. The `read_html` function does exactly this task. For finer
+control over .html scraping the user may investigate the **xml2** &
+**rvest** packages for parsing .html and .xml files. Here I read in HTML
+with `read_html`.
+
+    html_doc %>%
+        read_html() 
+
+    ##  [1] "textreadr Creed"                                                                                                                                                                                                                                                                                                                                             
+    ##  [2] "The textreadr package aims to be a lightweight tool kit that handles 80% of an analyst’s text reading in needs."                                                                                                                                                                                                                                             
+    ##  [3] "The package handles .docx, .doc, .pdf, .html, .pptx, and .txt."                                                                                                                                                                                                                                                                                              
+    ##  [4] "If you have another format there is likely already another popular R package that specializes in this read in task. For example, got XML, use the xml2 package, authored by Hadley Wickham, Jim Hester, & Jeroen Ooms. Need special handling for .html? Use Hadley Wickham’s rvest package. Got SQL? Oh boy there’s a bunch of great ways to read it into R."
+    ##  [5] "R Package"                                                                                                                                                                                                                                                                                                                                                   
+    ##  [6] "SQL"                                                                                                                                                                                                                                                                                                                                                         
+    ##  [7] "ROBDC"                                                                                                                                                                                                                                                                                                                                                       
+    ##  [8] "Microsoft SQL Server"                                                                                                                                                                                                                                                                                                                                        
+    ##  [9] "RMySQL"                                                                                                                                                                                                                                                                                                                                                      
+    ## [10] "MySQL"                                                                                                                                                                                                                                                                                                                                                       
+    ## [11] "ROracle"                                                                                                                                                                                                                                                                                                                                                     
+    ## [12] "Oracle"                                                                                                                                                                                                                                                                                                                                                      
+    ## [13] "RJDBC"                                                                                                                                                                                                                                                                                                                                                       
+    ## [14] "JDBC"
+
+### Read .odt
+
+Open Document Texts (.odt) are rather similar to .docx files in how they
+behave. The `read_odt` function reads them in in a similar way.
+
+    odt_doc %>%
+        read_odt() 
+
+    ## [1] "Hello World"                     "I am Open Document Text Format!"
+
+### Read .pdf
 
 Like .docx a .pdf file is simply a container. Reading PDF’s is made
 easier with a number of command line tools. A few methods of PDF reading
@@ -479,22 +516,22 @@ with meta data, including page numbers and element (row) ids.
     pdf_doc %>%
         read_pdf() 
 
-    ## Table: [616 x 3]
+    ## Table: [19 x 3]
     ## 
-    ##    page_id element_id text                                    
-    ## 1  1       1          Interview with Mary Waters Spaulding, Au
-    ## 2  1       2          CRAIG BREADEN: My name is Craig Breaden.
-    ## 3  1       3          and I’m with Kirston Johnson, the curato
-    ## 4  1       4          is August 8, 2013, and we are in Lexingt
-    ## 5  1       5          life and family, and particularly about 
-    ## 6  1       6          your full name, date of birth, and place
-    ## 7  1       7          MARY WATERS SPAULDING: My name is Mary E
-    ## 8  1       8          birth was Lexington, NC, on May 14, 1942
-    ## 9  1       9          BREADEN: Can you describe what Lexington
-    ## 10 1       10         1940’s?                                 
+    ##    page_id element_id text                                      
+    ## 1  1       1          Interview with Mary Waters Spaulding, Au  
+    ## 2  2       1          teenager, like fourteen or fifteen, so s  
+    ## 3  3       1          all I know about the background. I’m wor  
+    ## 4  4       1          photographs, proofing. And when I got to  
+    ## 5  5       1          the people --\n\nSPAULDING: He was just a 
+    ## 6  6       1          JOHNSON: No, the initial idea to even ma  
+    ## 7  7       1          WATERS: Sometimes on the steps of the co  
+    ## 8  8       1          the white communities. Did he ever share  
+    ## 9  9       1          have on stage a professional photographe  
+    ## 10 10      1          times with him to do that. And he would   
     ## .. ...     ...        ...
 
-### Image Based .pdf: OCR
+#### Image Based .pdf: OCR
 
 Image based .pdfs require optical character recognition (OCR) in order
 for the images to be converted to text. The `ocr` argument of `read_pdf`
@@ -540,8 +577,7 @@ default behavior of `read_pdf`.
     ## 10 1       10         such as clustering, classi<U+FB01>cation, etc. 
     ## .. ...     ...        ... 
 
-Read .pptx
-----------
+### Read .pptx
 
 Like the .docx, a .pptx file is also nothing but a fancy container.
 Likewise, it can be parsed via XML. The `read_pptx` function allows the
@@ -572,35 +608,22 @@ slide id numbers.
     ## 18:        4          6                     Green
     ## 19:        4          7                    Orange
 
-Read .html
-----------
+### Read .rtf
 
-Often a researcher only wishes to grab the text from the body of .html
-files. The `read_html` function does exactly this task. For finer
-control over .html scraping the user may investigate the **xml2** &
-**rvest** packages for parsing .html and .xml files. Here I read in HTML
-with `read_html`.
+Rich text format (.rtf) is a plain text document with markup similar to
+latex. The **striprtf** package provides the backend for `read_rtf`.
 
-    html_doc %>%
-        read_html() 
+    rtf_doc %>%
+        read_rtf() 
 
-    ##  [1] "textreadr Creed"                                                                                                                                                                                                                                                                                                                                             
-    ##  [2] "The textreadr package aims to be a lightweight tool kit that handles 80% of an analyst’s text reading in needs."                                                                                                                                                                                                                                             
-    ##  [3] "The package handles .docx, .doc, .pdf, .html, .pptx, and .txt."                                                                                                                                                                                                                                                                                              
-    ##  [4] "If you have another format there is likely already another popular R package that specializes in this read in task. For example, got XML, use the xml2 package, authored by Hadley Wickham, Jim Hester, & Jeroen Ooms. Need special handling for .html? Use Hadley Wickham’s rvest package. Got SQL? Oh boy there’s a bunch of great ways to read it into R."
-    ##  [5] "R Package"                                                                                                                                                                                                                                                                                                                                                   
-    ##  [6] "SQL"                                                                                                                                                                                                                                                                                                                                                         
-    ##  [7] "ROBDC"                                                                                                                                                                                                                                                                                                                                                       
-    ##  [8] "Microsoft SQL Server"                                                                                                                                                                                                                                                                                                                                        
-    ##  [9] "RMySQL"                                                                                                                                                                                                                                                                                                                                                      
-    ## [10] "MySQL"                                                                                                                                                                                                                                                                                                                                                       
-    ## [11] "ROracle"                                                                                                                                                                                                                                                                                                                                                     
-    ## [12] "Oracle"                                                                                                                                                                                                                                                                                                                                                      
-    ## [13] "RJDBC"                                                                                                                                                                                                                                                                                                                                                       
-    ## [14] "JDBC"
+    ## [1] "Researcher 2:\tOctober 7, 1892."                                                                                                                                                                                                                                                                                                                              
+    ## [2] "Teacher 4:\tStudents it’s time to learn."                                                                                                                                                                                                                                                                                                                     
+    ## [3] "[Student discussion; unintelligible]"                                                                                                                                                                                                                                                                                                                        
+    ## [4] "Multiple Students:\tYes teacher we‘re ready to learn."                                                                                                                                                                                                                                                                                                        
+    ## [5] "Teacher 4:\tLet's read this terrific book together.  It's called Moo Baa La La La and – what was I going to …  Oh yes — The story is by Sandra Boynton."                                                                                                                                                                                                      
+    ## [6] "“A cow says Moo. A Sheep says Baa. Three singing pigs say LA LA LA! \"No, no!\" you say, that isn't right. The pigs say oink all day and night. Rhinoceroses snort and snuff. And little dogs go ruff ruff ruff! Some other dogs go bow wow wow! And cats and kittens say Meow! Quack! Says the duck. A horse says neigh. It's quiet now. What do you say? ”"
 
-Read Transcripts
-----------------
+## Read Transcripts
 
 Many researchers store their dialogue data (including interviews and
 observations) as a .docx or .xlsx file. Typically the data is a two
@@ -615,7 +638,20 @@ handles. These are the files that will be read in:
 
     base_name(trans_docs)
 
-    ## [1] "trans1.docx" "trans2.docx" "trans3.docx" "trans4.xlsx" "trans5.xls"  "trans6.doc"  "trans7.rtf"  "transcripts"
+    ## [1] "trans1.docx" "trans2.docx" "trans3.docx" "trans4.xlsx" "trans5.xls" 
+    ## [6] "trans6.doc"  "trans7.rtf"  "trans8.odt"  "transcripts"
+
+### doc
+
+    read_transcript(trans_docs[6], skip = 1)
+
+    ## Table: [3 x 2]
+    ## 
+    ##   Person            Dialogue                                
+    ## 1 Teacher 4         Students it's time to learn. [Student di
+    ## 2 Multiple Students Yes teacher we're ready to learn.       
+    ## 3 Teacher 4         Let's read this terrific book together. 
+    ## . ...               ...
 
 ### docx Simple
 
@@ -678,6 +714,32 @@ separator the first go round.
     ## 3 Teacher 4         Let's read this terrific book together. 
     ## . ...               ...
 
+### odt
+
+    read_transcript(trans_docs[8])
+
+    ## Table: [4 x 2]
+    ## 
+    ##   Person            Dialogue                                
+    ## 1 Researcher 2      October 7,1892.                         
+    ## 2 Teacher4          Students it's time to learn. [Student di
+    ## 3 Multiple Students Yes teacher we're ready to learn.       
+    ## 4 Teacher4          Let's read this terrific book together. 
+    ## . ...               ...
+
+### rtf
+
+    read_transcript(rtf_doc, skip = 1)
+
+    ## Table: [4 x 2]
+    ## 
+    ##   Person            Dialogue                                
+    ## 1 Researcher 2      October 7, 1892.                        
+    ## 2 Teacher 4         Students it's time to learn. [Student di
+    ## 3 Multiple Students Yes teacher we're ready to learn.       
+    ## 4 Teacher 4         Let's read this terrific book together. 
+    ## . ...               ...
+
 ### xls and xlsx
 
     read_transcript(trans_docs[4])
@@ -715,31 +777,6 @@ separator the first go round.
     ## 6 <NA>               NA NA NA                                
     ## 7 Teacher 4:         Let's read this terrific book together. 
     ## . ...                ...
-
-### doc
-
-    read_transcript(trans_docs[6], skip = 1)
-
-    ## Table: [3 x 2]
-    ## 
-    ##   Person            Dialogue                                
-    ## 1 Teacher 4         Students it's time to learn. [Student di
-    ## 2 Multiple Students Yes teacher we're ready to learn.       
-    ## 3 Teacher 4         Let's read this terrific book together. 
-    ## . ...               ...
-
-### rtf
-
-    read_transcript(rtf_doc, skip = 1)
-
-    ## Table: [4 x 2]
-    ## 
-    ##   Person            Dialogue                                
-    ## 1 Researcher 2      October 7, 1892.                        
-    ## 2 Teacher 4         Students it's time to learn. [Student di
-    ## 3 Multiple Students Yes teacher we're ready to learn.       
-    ## 4 Teacher 4         Let's read this terrific book together. 
-    ## . ...               ...
 
 ### Reading Text
 
@@ -792,8 +829,7 @@ Here I read in an authentic interview transcript:
     ## 10 Abd Rabou So far I didn't get--So far--Maybe it do
     ## .. ...       ...
 
-Pairing textreadr
------------------
+## Pairing textreadr
 
 **textreadr** is but one package used in the text analysis (often the
 first package used). It pairs nicely with a variety of other text
@@ -807,10 +843,11 @@ I demonstrate pairings with
 [**qdapRegex**](https://github.com/trinker/qdapRegex), and
 [**dplyr**](https://github.com/tidyverse/dplyr).
 
-    if (!require("pacman")) install.packages("pacman"); library(pacman)
-    p_load(dplyr, qdapRegex)
-    p_load_current_gh(file.path('trinker', c('textreadr', 'textshape', 'textclean')))
-    
+    library(dplyr)
+    library(qdapRegex)
+    library(textreadr)
+    library(textshape)
+    library(textclean)
 
     ## Read in pdf, split on variables
     dat <- 'http://scdb.wustl.edu/_brickFiles/2012_01/SCDB_2012_01_codebook.pdf' %>%
@@ -839,10 +876,11 @@ I demonstrate pairings with
         setNames(seq_along(.)) %>%
         {.[sapply(., function(x) all(length(x) > 1 | !is.na(x)))]}
 
-    ## $`24`
-    ## [1] " Townsend v. Sain"        " Simpson v. Florida"      "McNally v. United States" "United States v. Gray"   
+    ## $`25`
+    ## [1] " Townsend v. Sain"        " Simpson v. Florida"     
+    ## [3] "McNally v. United States" "United States v. Gray"   
     ## 
-    ## $`30`
+    ## $`31`
     ## [1] "Edward V. Heck"
     ## 
     ## $`36`
@@ -852,34 +890,49 @@ I demonstrate pairings with
     ## [1] "Pulliam v. Allen"   "Burnett v. Grattan"
     ## 
     ## $`40`
-    ##  [1] " United States v. Knox"                                            "Lassiter v. Department of Social Services"                        
-    ##  [3] "Arkansas v. Tennessee"                                             "Utah v. United States"                                            
-    ##  [5] "Johnson v. United States"                                          "Baldonado v. California"                                          
-    ##  [7] "Conway v. California Adult Authority"                              "Wheaton v. California"                                            
-    ##  [9] "Maxwell v. Bishop"                                                 "National Labor Relations Board v. United Insurance Co. of America"
-    ## [11] "United States v. King"                                             "National Labor Relations Board v. United Insurance Co. of America"
-    ## [13] "United States v. King"                                            
+    ##  [1] " United States v. Knox"                                           
+    ##  [2] "Lassiter v. Department of Social Services"                        
+    ##  [3] "Arkansas v. Tennessee"                                            
+    ##  [4] "Utah v. United States"                                            
+    ##  [5] "Johnson v. United States"                                         
+    ##  [6] "Baldonado v. California"                                          
+    ##  [7] "Conway v. California Adult Authority"                             
+    ##  [8] "Wheaton v. California"                                            
+    ##  [9] "Maxwell v. Bishop"                                                
+    ## [10] "National Labor Relations Board v. United Insurance Co. of America"
+    ## [11] "United States v. King"                                            
     ## 
-    ## $`44`
-    ## [1] "Grisham v. Hagan"                   "McElroy v. Guagliardo"              "Virginia Supreme Court v. Friedman"
+    ## $`41`
+    ## [1] "National Labor Relations Board v. United Insurance Co. of America"
+    ## [2] "United States v. King"                                            
     ## 
-    ## $`48`
-    ## [1] "Baker v. Carr"                     "Gray v. Sanders"                   " Patterson v. McLean Credit Union"
+    ## $`45`
+    ## [1] "Grisham v. Hagan"                   "McElroy v. Guagliardo"             
+    ## [3] "Virginia Supreme Court v. Friedman"
     ## 
-    ## $`53`
+    ## $`49`
+    ## [1] "Baker v. Carr"                     "Gray v. Sanders"                  
+    ## [3] " Patterson v. McLean Credit Union"
+    ## 
+    ## $`54`
     ## [1] "Bates v. Arizona State Bar"
     ## 
-    ## $`57`
-    ## [1] "New York Gaslight Club, Inc. v. Carey" "Pruneyard Shopping Center v. Robins"  
-    ## 
     ## $`58`
-    ## [1] "Mobile v. Bolden"                             "Williams v. Brown"                            "United States v. Havens"                     
-    ## [4] "Parratt v. Taylor"                            "Dougherty County Board of Education v. White" "Jenkins v. Anderson"
+    ## [1] "New York Gaslight Club, Inc. v. Carey"
+    ## [2] "Pruneyard Shopping Center v. Robins"  
+    ## 
+    ## $`59`
+    ## [1] "Mobile v. Bolden"                            
+    ## [2] "Williams v. Brown"                           
+    ## [3] "United States v. Havens"                     
+    ## [4] "Parratt v. Taylor"                           
+    ## [5] "Dougherty County Board of Education v. White"
+    ## [6] "Jenkins v. Anderson"
 
-Other Implementations
-=====================
+# Other Implementations
 
 Some other implementations of text readers in R:
 
 1.  [tm](https://CRAN.R-project.org/package=tm)
 2.  [readtext](https://CRAN.R-project.org/package=readtext)
+
